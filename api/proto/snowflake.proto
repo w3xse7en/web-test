@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package webtest;
+
+option go_package = "github.com/w3xse7en/web-test/pkg/api";
+
+import "google/protobuf/empty.proto";
+
+service snowflake {
+    // 获得分布式ID
+    rpc GetID (google.protobuf.Empty) returns (GetIDResp);
+    // 每分钟同一来源IP只能被获取两次分布式ID
+    rpc GetIDByRateLimit (google.protobuf.Empty) returns (GetIDResp);
+}
+
+message GetIDResp {
+    // snowflake_id
+    int64 id = 1;
+}
